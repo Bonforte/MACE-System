@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GUIalarm</title>
+    <link rel="stylesheet" href="/static/styles.css"/>
+</head>
+<body style="background-color: darkgray;">
+  <div class="main">
+    <h1 style="color:midnightblue;">Welcome to the Alarming System parameter settings and alarm logs viewer </h1>
+    <h2 style="color:midnightblue;">MACE (Monitoring, Alarm and Control for ELIADE)</h2>
+    <br>
+    
+    <form action="" method="POST">
+      <label for="alarm" style="font-weight: bold; color:purple;">Alarm limits:</label><br><br><br>
+      <input type="text" name="text_box" value='Insert here.'>
+      <br><br>
+      <label style="font-weight: bold; color:purple;">Set HV time between read-outs:</label><br><br><br>
+      <input type="text" name="time_box" value='Insert here.'>
+      <br><br>
+        <input type="submit" value="Send Value">
+
+    </form>
+      <br><br><br>
+      <h3 style="color:purple;">Currently active alarms limits:</h3>
+      {% for v in range(3) %}
+      {% if v==0 %}
+      <p style="color:rgb(102, 15, 9);">Passive Alarm Level: {{values[v]}}</p><br>
+      <br>
+      {% endif %}
+      {% if v==1 %}
+      <p style="color:rgb(102, 15, 9);">Yellow Alarm Level: {{values[v]}}</p><br>
+      <br>
+      {% endif %}
+      {% if v==2 %}
+      <p style="color:rgb(102, 15, 9);">Red Alarm Level: {{values[v]}}</p><br>
+      <br>
+      {% endif %}
+      {% endfor %}
+      <br>
+      <br>
+      <p style="color:purple; font-weight: bold;">The waiting time between read-outs for CAEN HV is:</p><br>
+      <p style="color:rgb(102, 15, 9);">{{wtime}} seconds</p>
+      <br><br>
+      <h3 style="color:purple;">Table of previous alarms</h3>
+      <table class="table">
+        <tr class="header">
+          {% for header in headings %}
+          <th>{{header}}</th>
+        {% endfor %}
+        </tr>
+        {% if data %}
+          {% for row in data %}
+          <tr>
+            {% if "passive" in row %}
+              {% for cell in row %}
+                  <td class="passive">{{cell}}</td>
+            {% endfor %}
+            {% endif %}
+            {% if "yellow" in row %}
+              {% for cell in row %}
+                  <td class="yellow">{{cell}}</td>
+            {% endfor %}
+            {% endif %}
+            {% if "red" in row %}
+              {% for cell in row %}
+                  <td class="red">{{cell}}</td>
+            {% endfor %}
+            {% endif %}
+          </tr>
+            {% endfor %}
+        {% endif %}
+
+
+      </table>
+    </div>
+    </body>
+</html>

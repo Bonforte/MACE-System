@@ -1,0 +1,36 @@
+.main {
+    text-align: center;
+    }
+
+.header {
+    background-color:cadetblue;
+}
+
+.table {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+   
+}
+
+.passive {
+ 
+    background-color: burlywood; 
+    font-style: normal;
+    color: darkblue;
+}
+
+.yellow {
+   background-color: yellow;
+   font-style: normal;
+   color: darkblue;
+}
+
+.red {
+    background-color: red;
+    font-style: normal;   
+    color: darkblue;
+}
