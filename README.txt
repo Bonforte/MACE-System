@@ -1,3 +1,7 @@
+##################
+OUTDATED
+###############
+
 Welcome to the MAC (Monitor, Alarm, Control) instructions:
 
 Before each server restart make sure influxdb and grafana-server services are running.
