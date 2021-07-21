@@ -62,4 +62,5 @@ def index_post1():
 
 
 if __name__=="__main__":
+    #ip and port of running
     app.run(host=os.getenv('IP','172.18.4.156'),port=int(os.getenv('PORT',24013)),debug=True)
