@@ -14,10 +14,12 @@
     <br>
     
     <form action="" method="POST">
-      <label for="alarm" style="font-weight: bold; color:purple;">Alarm limits:</label><br><br><br>
+      <p style="font-weight: bold; color:purple;">Please make sure to write in both boxes.<br>Even if you do not intend on changing the value, the program will crash if you enter the values in just one box.<br>
+      For the value you do not want to change, just repeat the value that is listed down in the recommended manner.</p>
+      <label for="alarm" style="font-weight: bold; color:purple;">Insert alarm limits separated by commas with no spaces in increasing order of severity:<br>Example: call,trigger_filling,shut_down:</label><br><br><br>
       <input type="text" name="text_box" value='Insert here.'>
       <br><br>
-      <label style="font-weight: bold; color:purple;">Set HV time between read-outs:</label><br><br><br>
+      <label style="font-weight: bold; color:purple;">Set HV time between read-outs (in seconds):</label><br><br><br>
       <input type="text" name="time_box" value='Insert here.'>
       <br><br>
         <input type="submit" value="Send Value">
@@ -27,11 +29,11 @@
       <h3 style="color:purple;">Currently active alarms limits:</h3>
       {% for v in range(3) %}
       {% if v==0 %}
-      <p style="color:rgb(102, 15, 9);">Passive Alarm Level: {{values[v]}}</p><br>
+      <p style="color:rgb(102, 15, 9);">Shut Down(yellow) Alarm Level: {{values[v]}}</p><br>
       <br>
       {% endif %}
       {% if v==1 %}
-      <p style="color:rgb(102, 15, 9);">Yellow Alarm Level: {{values[v]}}</p><br>
+      <p style="color:rgb(102, 15, 9);">Trigger Filling(yellow) Alarm Level: {{values[v]}}</p><br>
       <br>
       {% endif %}
       {% if v==2 %}
