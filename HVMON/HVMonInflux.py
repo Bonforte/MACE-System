@@ -7,7 +7,16 @@ from epics import caget
 
 #Declaring some constants that we will use:
 epicsaddress='9b0ab43a3f7d7ff0'
-client=InfluxDBClient(host='172.18.4.156',port='8086',database='HVMonitor')
+#Set your ip and port here:
+dbip='172.18.4.156'
+dbport='8086'
+
+#Influx Database name:
+indb='HVMonitor'
+
+#InfluxDB setup:
+client=InfluxDBClient(host=dbip,port=dbport,database=indb)
+clientDet=InfluxDBClient(host=dbip,port=dbport,database=indb)
 
 #Seeing what is active using configuration file
 conf_list=[]
