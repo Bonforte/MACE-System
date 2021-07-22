@@ -7,15 +7,16 @@ from influxdb import InfluxDBClient
 with open('/home/eliade/MAC-System-Grafana/GUI/Alarmconf.txt','r') as g1:
             values =g1.read().split(',')
             
-
+headings=[]
+data=[]
 results=[]
 client=InfluxDBClient(host='172.18.4.156',port='8086',database='AlarmDB')
-result=client.query('select * from alarms')
+result=client.query('select * from AlarmTable')
 
-headings=result.raw['series'][0]['columns']
-data=[]
-for entry in result.raw['series'][0]['values']:
-    data.append(entry)
+if result:
+    headings=result.raw['series'][0]['columns']
+    for entry in result.raw['series'][0]['values']:
+        data.append(entry)
 
 
 app=Flask(__name__)
@@ -62,5 +63,4 @@ def index_post1():
 
 
 if __name__=="__main__":
-    #ip and port of running for server
-    app.run(host=os.getenv('IP','172.18.4.156'),port=int(os.getenv('PORT',24013)),debug=True)
+    app.run(host=os.getenv('IP','127.0.0.1'),port=int(os.getenv('PORT',24013)),debug=True)

@@ -22,7 +22,7 @@ def influx(altype,iddet):
     timeset=datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
     json_body = [
         {
-            "measurement": "Alarmlogs",
+            "measurement": "AlarmTable",
             "time": timeset,
             "fields": {
                 "type":altype,

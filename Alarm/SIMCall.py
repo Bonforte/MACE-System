@@ -22,7 +22,7 @@ def maincode():
         timeset=datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
         json_body = [
         {
-            "measurement": "Alarmlogs",
+            "measurement": "AlarmTable",
             "time": timeset,
             "fields": {
                 "type":altype,
@@ -36,7 +36,7 @@ def maincode():
         alarmlimits=f.read().split(',')
         for i in range(len(alarmlimits)):
             alarmlimits[i]=int(alarmlimits[i])
-    callalarm=alarmlimits[1]
+    callalarm=alarmlimits[0]
 
     def connect():
         client=AdbClient(host="127.0.0.1", port=5037)
