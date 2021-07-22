@@ -56,9 +56,9 @@
         {% if data %}
           {% for row in data %}
           <tr>
-            {% if "passive" in row %}
+            {% if "tfill" in row %}
               {% for cell in row %}
-                  <td class="passive">{{cell}}</td>
+                  <td class="tfill">{{cell}}</td>
             {% endfor %}
             {% endif %}
             {% if "yellow" in row %}
