@@ -4,8 +4,8 @@ from flask import Flask, render_template, request,g,redirect,session,url_for
 import os
 from influxdb import InfluxDBClient
 
-with open('/home/eliade/MAC-System-Grafana/GUI/Alarmconf.txt','r') as g1:
-            values =g1.read().split(',')
+#with open('/home/eliade/MAC-System-Grafana/GUI/Alarmconf.txt','r') as g1:
+#            values =g1.read().split(',')
             
 headings=[]
 data=[]
@@ -29,7 +29,7 @@ class User:
         self.password=password
 
 users=[]
-users.append(User(id=1,username='eliademace',password='Analiza_E8'))
+users.append(User(id=1,username='eliade-np',password='Analiza_E8'))
 
 app.secret_key='Analiza_E8'
 
@@ -43,6 +43,8 @@ def before_request():
 
 @app.route('/', methods=['GET','POST'])
 def login():
+    with open('/home/eliade/MAC-System-Grafana/GUI/Alarmconf.txt','r') as g1:
+            values =g1.read().split(',')
     if request.method=='POST':
         session.pop('user_id',None)
         username=request.form['username']
@@ -51,34 +53,19 @@ def login():
         user=[x for x in users if x.username==username][0]
         if user and user.password==password:
             session['user_id']=user.id
-            return redirect(url_for('index'))
-        return redirect(url_for('index'))
-    return render_template('login.html')
+            return redirect(url_for('index_get1'))
+        return redirect(url_for('index_get1'))
+    return render_template('login.html',values=values)
 
 
-@app.route('/ELIADE-MACE')
-
-def index():
-    if not g.user:
-        return redirect(url_for(''))
-    with open("/home/eliade/MAC-System-Grafana/GUI/wait_time.txt",'r') as g2:
-        wtime=g2.read()
-    return render_template('index.html',headings=headings, data=data,values=values,wtime=wtime)
 
 @app.route('/ELIADE-MACE',methods=['GET'])
 def index_get1():
     if not g.user:
-        return redirect(url_for(''))
+        return redirect(url_for('login'))
     if request.method=='GET':
         with open('/home/eliade/MAC-System-Grafana/GUI/Alarmconf.txt','r') as g1:
             values =g1.read().split(',')
-    return render_template('index.html',headings=headings, data=data,values=values)
-
-@app.route('/ELIADE-MACE',methods=['GET'])
-def index_get2():
-    if not g.user:
-        return redirect(url_for(''))
-    if request.method=='GET':
         with open('/home/eliade/MAC-System-Grafana/GUI/wait_time.txt','r') as g2:
             wtime =g2.read()
     return render_template('index.html',headings=headings, data=data,values=values,wtime=wtime)
@@ -86,7 +73,7 @@ def index_get2():
 @app.route('/ELIADE-MACE',methods=['POST'])
 def index_post1():
     if not g.user:
-        return redirect(url_for(''))
+        return redirect(url_for('login'))
     input_alarm=request.form['text_box']
     if request.method=='POST':
         with open('/home/eliade/MAC-System-Grafana/GUI/Alarmconf.txt','w') as f1:

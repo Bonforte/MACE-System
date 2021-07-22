@@ -17,10 +17,10 @@
       <p style="font-weight: bold; color:purple;">Please make sure to write in both boxes.<br>Even if you do not intend on changing the value, the program will crash if you enter the values in just one box.<br>
       For the value you do not want to change, just repeat the value that is listed down in the recommended manner.</p>
       <label for="alarm" style="font-weight: bold; color:purple;">Insert alarm limits separated by commas with no spaces in increasing order of severity:<br>Example: call,trigger_filling,shut_down:</label><br><br><br>
-      <input type="text" name="text_box" value='Insert here.'>
+      <input type="text" name="text_box" value={% for x in values %}{{x}},{% endfor %}>
       <br><br>
       <label style="font-weight: bold; color:purple;">Set HV time between read-outs (in seconds):</label><br><br><br>
-      <input type="text" name="time_box" value='Insert here.'>
+      <input type="text" name="time_box" value={{wtime}}>
       <br><br>
         <input type="submit" value="Send Value">
 
