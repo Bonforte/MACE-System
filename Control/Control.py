@@ -42,11 +42,10 @@ for x in xmlroot.findall('detector'):
     id=x.find('id').text
     channels=x.find('channels').text
     channels=channels.split(",")
-    
-    slotvec.append(int(slot))
-    idvec.append(int(id))
     for i in range(len(channels)):
-        channels[i]=int(channels[i])
+        channels[i]=channels[i].zfill(3)
+    slotvec.append(slot.zfill(2))
+    idvec.append(int(id))
     channelsvec.append(channels)
 
 #Deleting 0 values for better efficiency of alarm trigger
@@ -54,7 +53,7 @@ channelsvecdel=[]
 slotvecdel=[]
 idvecdel=[]
 for i in range(len(channelsvec)):
-    if channelsvec[i][0]==0:
+    if channelsvec[i][0]=='000':
         channelsvecdel.append(i)
 cntr=0
 for ch in channelsvecdel:
@@ -62,7 +61,7 @@ for ch in channelsvecdel:
     cntr=cntr+1
 
 for x in range(len(slotvec)):
-    if slotvec[x]==0:
+    if slotvec[x]=='00':
         slotvecdel.append(x)
         idvecdel.append(x)
 cntr=0
@@ -73,6 +72,7 @@ cntr=0
 for id in idvecdel:
     idvec.remove(idvec[id-cntr])
     cntr=cntr+1
+
 print(channelsvec,slotvec,idvec)
 
 #Reading alarm limits:
@@ -84,20 +84,22 @@ sdalarm=alarmlimits[-1]
 tfalarm=alarmlimits[-2]
 
 #Monitoring for trigger signs:
-#slotvec and channelsvec needed for shutdown signal
 while(True):
-    for i in range(len(slotvec)):
-        for j in range(len(channelsvec)):
-            DetTempValues = caget('172.18.4.108:EpicsLibrary:DetTempValues.VAL')
-            for z in range(len(DetTempValues)):
-                if DetTempValues[z]>=sdalarm and DetTempValues[z]<tfalarm:
-                    print("Shutdown initiated!")
+    DetTempValues = caget('172.18.4.108:EpicsLibrary:DetTempValues.VAL')
+    #print(DetTempValues)
+    #time.sleep(20)
+    for z in range(len(DetTempValues)):
+        if DetTempValues[z]>=sdalarm and DetTempValues[z]<tfalarm:
+            for id in range(len(idvec)):
+                if idvec[id]==z+1:
+                    print("Shutdown alarm!")
+                    #for x in range(len(channelsvec[id])):
+                     #   caput('9b0ab43a3f7d7ff0:'+str(slotvec[id])+':'+str(channelsvec[id][x])+':Pw',0)
                     influx('red',str(z+1))
                     time.sleep(360)
-                if DetTempValues[z]>=tfalarm and DetTempValues[z]<100:
-                    print('Trigger filling initiated!')
-                    influx('tfill',str(z+1))
-                    time.sleep(360)
+        if DetTempValues[z]>=tfalarm and DetTempValues[z]<100:
+            print('Trigger filling alarm!')
+            influx('tfill',str(z+1))
+            time.sleep(360)
 
 
-#caput('9b0ab43a3f7d7ff0:01:000:Pw',1)
