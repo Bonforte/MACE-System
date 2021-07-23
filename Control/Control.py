@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 from epics import caput,caget
 import xml.etree.ElementTree as ET
 from influxdb import InfluxDBClient
@@ -42,6 +41,11 @@ for x in xmlroot.findall('detector'):
     id=x.find('id').text
     channels=x.find('channels').text
     channels=channels.split(",")
+    for i in range(len(channels)):
+        if channels[i]!='0':
+            channels[i]=int(channels[i])
+            channels[i]=channels[i]-1
+            channels[i]=str(channels[i])
     for i in range(len(channels)):
         channels[i]=channels[i].zfill(3)
     slotvec.append(slot.zfill(2))
@@ -89,17 +93,17 @@ while(True):
     #print(DetTempValues)
     #time.sleep(20)
     for z in range(len(DetTempValues)):
-        if DetTempValues[z]>=sdalarm and DetTempValues[z]<tfalarm:
+        if DetTempValues[z]>=sdalarm:
             for id in range(len(idvec)):
                 if idvec[id]==z+1:
                     print("Shutdown alarm!")
-                    #for x in range(len(channelsvec[id])):
-                     #   caput('9b0ab43a3f7d7ff0:'+str(slotvec[id])+':'+str(channelsvec[id][x])+':Pw',0)
+                    for x in range(len(channelsvec[id])):
+                        caput('9b0ab43a3f7d7ff0:'+str(slotvec[id])+':'+str(channelsvec[id][x])+':Pw',0)
                     influx('red',str(z+1))
-                    time.sleep(360)
+                    time.sleep(120)
+                    for x in range(len(channelsvec[id])):
+                        caput('9b0ab43a3f7d7ff0:'+str(slotvec[id])+':'+str(channelsvec[id][x])+':Pw',1)
         if DetTempValues[z]>=tfalarm and DetTempValues[z]<100:
             print('Trigger filling alarm!')
             influx('tfill',str(z+1))
             time.sleep(360)
-
-

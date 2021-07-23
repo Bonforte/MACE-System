@@ -3,20 +3,31 @@
 from flask import Flask, render_template, request,g,redirect,session,url_for
 import os
 from influxdb import InfluxDBClient
-
-#with open('/home/eliade/MAC-System-Grafana/GUI/Alarmconf.txt','r') as g1:
-#            values =g1.read().split(',')
+import time
+from datetime import datetime
+import numpy as np
             
 headings=[]
 data=[]
 results=[]
 client=InfluxDBClient(host='172.18.4.156',port='8086',database='AlarmDB')
-result=client.query('select * from AlarmTable')
 
+result=client.query('select * from AlarmTable')
 if result:
     headings=result.raw['series'][0]['columns']
     for entry in result.raw['series'][0]['values']:
         data.append(entry)
+    
+def tablerefresh():
+    headings=[]
+    datafs=[]
+    data=[]
+    result=client.query('select * from AlarmTable')
+    if result:
+        headings=result.raw['series'][0]['columns']
+        for entry in result.raw['series'][0]['values']:
+            data.append(entry)
+        
 
 
 app=Flask(__name__)
@@ -61,6 +72,7 @@ def login():
 
 @app.route('/ELIADE-MACE',methods=['GET'])
 def index_get1():
+    tablerefresh()
     if not g.user:
         return redirect(url_for('login'))
     if request.method=='GET':
@@ -72,6 +84,7 @@ def index_get1():
 
 @app.route('/ELIADE-MACE',methods=['POST'])
 def index_post1():
+    tablerefresh()
     if not g.user:
         return redirect(url_for('login'))
     input_alarm=request.form['text_box']
