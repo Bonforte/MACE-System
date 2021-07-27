@@ -34,6 +34,7 @@ def influx(altype,iddet):
 slotvec=[]
 channelsvec=[]
 idvec=[]
+ConfDet=[]
 xmltree=ET.parse('/home/eliade/MAC-System-Grafana/Control/ch_to_det_map.xml')
 xmlroot=xmltree.getroot()
 for x in xmlroot.findall('detector'):
@@ -100,12 +101,13 @@ while(True):
                     for x in range(len(channelsvec[id])):
                         caput('9b0ab43a3f7d7ff0:'+str(slotvec[id])+':'+str(channelsvec[id][x])+':Pw',0)
                     influx('red',str(z+1))
-            time.sleep(1200)
-            for id in range(len(idvec)):
-                if idvec[id]==z+1:
-                    for x in range(len(channelsvec[id])):
-                        caput('9b0ab43a3f7d7ff0:'+str(slotvec[id])+':'+str(channelsvec[id][x])+':Pw',1)
+                    ConfDet.append(z)
         if DetTempValues[z]>=tfalarm and DetTempValues[z]<100:
             print('Trigger filling alarm!')
             influx('tfill',str(z+1))
             time.sleep(360)
+    time.sleep(1200)
+    for id in range(len(idvec)):
+        if idvec[id]==ConfDet[id]+1:
+            for x in range(len(channelsvec[id])):
+                caput('9b0ab43a3f7d7ff0:'+str(slotvec[id])+':'+str(channelsvec[id][x])+':Pw',1)
