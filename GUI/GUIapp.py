@@ -20,7 +20,6 @@ if result:
     
 def tablerefresh():
     headings=[]
-    datafs=[]
     data=[]
     result=client.query('select * from AlarmTable')
     if result:
@@ -72,7 +71,13 @@ def login():
 
 @app.route('/ELIADE-MACE',methods=['GET'])
 def index_get1():
-    tablerefresh()
+    headings=[]
+    data=[]
+    result=client.query('select * from AlarmTable')
+    if result:
+        headings=result.raw['series'][0]['columns']
+        for entry in result.raw['series'][0]['values']:
+            data.append(entry)
     if not g.user:
         return redirect(url_for('login'))
     if request.method=='GET':
@@ -84,7 +89,13 @@ def index_get1():
 
 @app.route('/ELIADE-MACE',methods=['POST'])
 def index_post1():
-    tablerefresh()
+    headings=[]
+    data=[]
+    result=client.query('select * from AlarmTable')
+    if result:
+        headings=result.raw['series'][0]['columns']
+        for entry in result.raw['series'][0]['values']:
+            data.append(entry)
     if not g.user:
         return redirect(url_for('login'))
     input_alarm=request.form['text_box']

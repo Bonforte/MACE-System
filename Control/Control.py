@@ -15,13 +15,16 @@ dbport='8086'
 #Influx Database name:
 indb='AlarmDB'
 
+#Influx measurement name:
+inm="AlarmTable"
+
 #Defining database insert function:
 client=InfluxDBClient(host=dbip,port=dbport,database=indb)
 def influx(altype,iddet):
     timeset=datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
     json_body = [
         {
-            "measurement": "AlarmTable",
+            "measurement": inm,
             "time": timeset,
             "fields": {
                 "type":altype,
@@ -30,11 +33,15 @@ def influx(altype,iddet):
           }]
     client.write_points(json_body)
 
-#Parsing XML file:
+#Initializing arrays that we will need:
 slotvec=[]
 channelsvec=[]
 idvec=[]
 ConfDet=[]
+DetTempMatrix=[]
+avgvec=[]
+
+#Parsing XML file:
 xmltree=ET.parse('/home/eliade/MAC-System-Grafana/Control/ch_to_det_map.xml')
 xmlroot=xmltree.getroot()
 for x in xmlroot.findall('detector'):
@@ -78,7 +85,7 @@ for id in idvecdel:
     idvec.remove(idvec[id-cntr])
     cntr=cntr+1
 
-print(channelsvec,slotvec,idvec)
+
 
 #Reading alarm limits:
 with open('/home/eliade/MAC-System-Grafana/GUI/Alarmconf.txt','r') as f:
@@ -90,11 +97,19 @@ tfalarm=alarmlimits[-2]
 
 #Monitoring for trigger signs:
 while(True):
-    DetTempValues = caget('172.18.4.108:EpicsLibrary:DetTempValues.VAL')
-    #print(DetTempValues)
-    #time.sleep(20)
-    for z in range(len(DetTempValues)):
-        if DetTempValues[z]>=sdalarm:
+    #forming a matrix of 10 values on each temperature index for better monitoring
+    for i in range(10):
+        DetTempValues = caget('172.18.4.108:EpicsLibrary:DetTempValues.VAL')
+        DetTempMatrix.append(DetTempValues)
+        time.sleep(3)
+    #calculating the average of those 10 values for each temperature index
+    for r in range(len(DetTempValues)):
+        sum=0
+        for p in range(len(DetTempMatrix)):
+            sum+=DetTempMatrix[r][p]
+        avgvec.append(sum/len(DetTempMatrix))
+    for z in range(len(avgvec)):
+        if avgvec[z]>=sdalarm:
             for id in range(len(idvec)):
                 if idvec[id]==z+1:
                     print("Shutdown alarm!")
@@ -102,7 +117,7 @@ while(True):
                         caput('9b0ab43a3f7d7ff0:'+str(slotvec[id])+':'+str(channelsvec[id][x])+':Pw',0)
                     influx('red',str(z+1))
                     ConfDet.append(z)
-        if DetTempValues[z]>=tfalarm and DetTempValues[z]<100:
+        if avgvec[z]>=tfalarm and avgvec[z]<100:
             print('Trigger filling alarm!')
             influx('tfill',str(z+1))
             time.sleep(360)
