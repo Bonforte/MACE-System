@@ -15,6 +15,9 @@ dbport='8086'
 #Influx Database name:
 indb='HVMonitor'
 
+#Influx measurement name:
+inm="HVMONDB"
+
 #InfluxDB setup:
 client=InfluxDBClient(host=dbip,port=dbport,database=indb)
 clientDet=InfluxDBClient(host=dbip,port=dbport,database=indb)
@@ -80,7 +83,7 @@ while(1):
         resultT=m3
         json_bodyboard=[
             {
-            "measurement": "HVMONDB",
+            "measurement": inm,
             "time":timeset,
             "fields":
             {
@@ -91,7 +94,7 @@ while(1):
         for y in range(channelsvec[j]):
             json_bodyboard.append(
                {
-            "measurement": "HVMONDB",
+            "measurement": inm,
             "time":timeset,
             "fields":
             {
@@ -101,7 +104,7 @@ while(1):
             )
             json_bodyboard.append(
                {
-            "measurement": "HVMONDB",
+            "measurement": inm,
             "time":timeset,
             "fields":
             {
@@ -114,3 +117,7 @@ while(1):
         resultI=[]
         resultT=0
     time.sleep(wtime)
+
+
+
+        

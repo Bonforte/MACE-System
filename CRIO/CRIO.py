@@ -12,6 +12,10 @@ dbport='8086'
 #Influx Database name:
 indb='CRIO'
 
+#Influx measurement name:
+inmv="CoolingSystemValves"
+inmd="CoolingSystemDet"
+
 #InfluxDB setup:
 client=InfluxDBClient(host=dbip,port=dbport,database=indb)
 clientDet=InfluxDBClient(host=dbip,port=dbport,database=indb)
@@ -39,70 +43,70 @@ def main():
     timeset=datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
     json_bodyValv = [
         {
-            "measurement": "CoolingSystemValves",
+            "measurement": inmv,
             "time": timeset,
             "fields": {
                 "temp1":valvesTempValues[0]
               }
           },
         {
-            "measurement": "CoolingSystemValves",
+            "measurement": inmv,
             "time": timeset,
             "fields": {
                 "temp2":valvesTempValues[1]
               }
            },
         {
-            "measurement": "CoolingSystemValves",
+            "measurement": inmv,
             "time": timeset,
             "fields": {
                 "temp3":valvesTempValues[2]
               }
           },
         {
-            "measurement": "CoolingSystemValves",
+            "measurement": inmv,
             "time": timeset,
             "fields": {
                 "temp4":valvesTempValues[3]
               }
           },
         {
-            "measurement": "CoolingSystemValves",
+            "measurement": inmv,
             "time": timeset,
             "fields": {
                 "temp5":valvesTempValues[4]
               }
           },
         {
-            "measurement": "CoolingSystemValves",
+            "measurement":inmv,
              "time": timeset,
             "fields": {
                 "temp6":valvesTempValues[5]
               }
           },
         {
-            "measurement": "CoolingSystemValves",
+            "measurement": inmv,
             "time": timeset,
             "fields": {
                 "temp7":valvesTempValues[6]
               }
           },
         {
-            "measurement": "CoolingSystemValves",
+            "measurement":inmv,
             "time": timeset,
             "fields": {
                 "temp8":valvesTempValues[7]
               }
           },
         {
-            "measurement": "CoolingSystemValves",
+            "measurement": inmv,
             "time": timeset,
             "fields": {
                 "temp9":valvesTempValues[8]
               }
           },
         {
-            "measurement": "CoolingSystemValves",
+            "measurement": inmv,
             "time": timeset,
             "fields": {
                 "temp10":valvesTempValues[9]
@@ -113,56 +117,56 @@ def main():
   
     json_bodyDet = [
         {
-            "measurement": "CoolingSystemDet",
+            "measurement": inmd,
             "time": timeset,
             "fields": {
                 "temp1":DetTempValues[0]
               }
           },
         {
-            "measurement": "CoolingSystemDet",
+            "measurement": inmd,
             "time": timeset,
             "fields": {
                 "temp2":DetTempValues[1]
               }
            },
         {
-            "measurement": "CoolingSystemDet",
+            "measurement": inmd,
             "time": timeset,
             "fields": {
                 "temp3":DetTempValues[2]
               }
           },
         {
-            "measurement": "CoolingSystemDet",
+            "measurement": inmd,
             "time": timeset,
             "fields": {
                 "temp4":DetTempValues[3]
                 }
           },
         {
-            "measurement": "CoolingSystemDet",
+            "measurement": inmd,
             "time": timeset,
             "fields": {
                 "temp5":DetTempValues[4]
               }
           },
         {
-            "measurement": "CoolingSystemDet",
+            "measurement": inmd,
             "time": timeset,
             "fields": {
                 "temp6":DetTempValues[5]
               }
           },
         {
-            "measurement": "CoolingSystemDet",
+            "measurement": inmd,
             "time": timeset,
             "fields": {
                 "temp7":DetTempValues[6]
               }
           },
         {
-            "measurement": "CoolingSystemDet",
+            "measurement": inmd,
             "time": timeset,
             "fields": {
                 "temp8":DetTempValues[7]

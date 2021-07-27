@@ -16,13 +16,16 @@ def maincode():
     #Influx Database name:
     indb='AlarmDB'
 
+    #Influx Measurement name:
+    inm="AlarmTable"
+
     #Defining database insert function:
     client=InfluxDBClient(host=dbip,port=dbport,database=indb)
     def influx(altype,iddet):
         timeset=datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
         json_body = [
         {
-            "measurement": "AlarmTable",
+            "measurement": inm,
             "time": timeset,
             "fields": {
                 "type":altype,
