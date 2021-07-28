@@ -86,7 +86,6 @@ for id in idvecdel:
     cntr=cntr+1
 
 
-
 #Reading alarm limits:
 with open('/home/eliade/MAC-System-Grafana/GUI/Alarmconf.txt','r') as f:
     alarmlimits=f.read().split(',')
@@ -102,11 +101,14 @@ while(True):
         DetTempValues = caget('172.18.4.108:EpicsLibrary:DetTempValues.VAL')
         DetTempMatrix.append(DetTempValues)
         time.sleep(3)
+    #resetting working arrays
+    avgvec=[]
+    ConfDet=[]
     #calculating the average of those 10 values for each temperature index
     for r in range(len(DetTempValues)):
         sum=0
         for p in range(len(DetTempMatrix)):
-            sum+=DetTempMatrix[r][p]
+            sum+=DetTempMatrix[p][r]
         avgvec.append(sum/len(DetTempMatrix))
     for z in range(len(avgvec)):
         if avgvec[z]>=sdalarm:
@@ -116,13 +118,14 @@ while(True):
                     for x in range(len(channelsvec[id])):
                         caput('9b0ab43a3f7d7ff0:'+str(slotvec[id])+':'+str(channelsvec[id][x])+':Pw',0)
                     influx('red',str(z+1))
-                    ConfDet.append(z)
+                    ConfDet.append(z+1)                
         if avgvec[z]>=tfalarm and avgvec[z]<100:
             print('Trigger filling alarm!')
             influx('tfill',str(z+1))
             time.sleep(360)
-    time.sleep(1200)
-    for id in range(len(idvec)):
-        if idvec[id]==ConfDet[id]+1:
-            for x in range(len(channelsvec[id])):
-                caput('9b0ab43a3f7d7ff0:'+str(slotvec[id])+':'+str(channelsvec[id][x])+':Pw',1)
+    if(ConfDet):
+        time.sleep(1200)
+        for id in range(len(idvec)):
+            if idvec[id] in ConfDet :
+                for x in range(len(channelsvec[id])):
+                    caput('9b0ab43a3f7d7ff0:'+str(slotvec[id])+':'+str(channelsvec[id][x])+':Pw',1)
