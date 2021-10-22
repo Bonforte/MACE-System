@@ -12,6 +12,8 @@ epicsaddress='9b0ab43a3f7d7ff0'
 dbip='172.18.4.156'
 dbport='8086'
 
+newIp = '172.18.4.108'
+
 #Influx Database name:
 indb='AlarmDB'
 
