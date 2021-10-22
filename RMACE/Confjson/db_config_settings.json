@@ -1,0 +1,378 @@
+{
+ "Credentials": {
+  "phonearray": [
+   "+40734260029"
+  ],
+  "emails": [
+   "gnitescu4@gmail.com"
+  ],
+  "ip": "172.18.4.156",
+  "influx_port": "8086",
+  "influx_db_name": "AlarmDB",
+  "influx_measurement_name": "AlarmTable",
+  "redis_port": "6379",
+  "redis_db_no": "1",
+  "redis_ip": "localhost",
+  "email_sender": "grafanaalarmingservice@gmail.com",
+  "password_sender": "Analiza_E8",
+  "flask_server_port": 24013,
+  "gui_user": "eliade-np",
+  "gui_password": "Analiza_E8"
+ },
+ "Detectors_config": {
+  "Detector 1": {
+   "Condition 1": [
+    "-179.25",
+    "-179.0"
+   ],
+   "Condition 2": [
+    "-179.0",
+    "-178.75"
+   ],
+   "Condition 3": [
+    "-178.75",
+    "-178.5"
+   ],
+   "Condition 4": [
+    "-178.5",
+    "-178.0"
+   ],
+   "TriggerTime": 5,
+   "AssignedChnls": [
+    4
+   ],
+   "HVSlot": 1,
+   "MonVar": 1
+  },
+  "Detector 2": {
+   "Condition 1": [
+    "-178.25",
+    "-178.15"
+   ],
+   "Condition 2": [
+    "-178.15",
+    "-178.05"
+   ],
+   "Condition 3": [
+    "-178.05",
+    "-177.95"
+   ],
+   "Condition 4": [
+    "-177.95",
+    "-177"
+   ],
+   "TriggerTime": 5,
+   "AssignedChnls": [],
+   "HVSlot": 0,
+   "MonVar": 1
+  },
+  "Detector 3": {
+   "Condition 1": [
+    "-178.25",
+    "-178.15"
+   ],
+   "Condition 2": [
+    "-178.15",
+    "-178.05"
+   ],
+   "Condition 3": [
+    "-178.05",
+    "-177.95"
+   ],
+   "Condition 4": [
+    "-177.95",
+    "-177.0"
+   ],
+   "TriggerTime": 5,
+   "AssignedChnls": [
+    6
+   ],
+   "HVSlot": 1,
+   "MonVar": 1
+  },
+  "Detector 4": {
+   "Condition 1": [
+    "-181",
+    "-180"
+   ],
+   "Condition 2": [
+    "-180",
+    "-179.3"
+   ],
+   "Condition 3": [
+    "-179.3",
+    "-178.1"
+   ],
+   "Condition 4": [
+    "-178.1",
+    "-173"
+   ],
+   "TriggerTime": 5,
+   "AssignedChnls": [
+    5,
+    7
+   ],
+   "HVSlot": 1,
+   "MonVar": 1
+  },
+  "Detector 5": {
+   "Condition 1": [
+    "-175",
+    "-155"
+   ],
+   "Condition 2": [
+    "-155",
+    "-135"
+   ],
+   "Condition 3": [
+    "-135",
+    "-115"
+   ],
+   "Condition 4": [
+    "-115",
+    "-95"
+   ],
+   "TriggerTime": 5,
+   "AssignedChnls": [],
+   "HVSlot": 0,
+   "MonVar": 1
+  },
+  "Detector 6": {
+   "Condition 1": [
+    "-175.0",
+    "-155.0"
+   ],
+   "Condition 2": [
+    "-155.0",
+    "-135.0"
+   ],
+   "Condition 3": [
+    "-135.0",
+    "-115.0"
+   ],
+   "Condition 4": [
+    "-115.0",
+    "-95.0"
+   ],
+   "TriggerTime": 5,
+   "AssignedChnls": [],
+   "HVSlot": 0,
+   "MonVar": 1
+  },
+  "Detector 7": {
+   "Condition 1": [
+    "-175.0",
+    "-155.0"
+   ],
+   "Condition 2": [
+    "-155.0",
+    "-135.0"
+   ],
+   "Condition 3": [
+    "-135.0",
+    "-115.0"
+   ],
+   "Condition 4": [
+    "-115.0",
+    "-95.0"
+   ],
+   "TriggerTime": 5,
+   "AssignedChnls": [],
+   "HVSlot": 0,
+   "MonVar": 1
+  },
+  "Detector 8": {
+   "Condition 1": [
+    "-175",
+    "-155"
+   ],
+   "Condition 2": [
+    "-155",
+    "-135"
+   ],
+   "Condition 3": [
+    "-135",
+    "-115"
+   ],
+   "Condition 4": [
+    "-115",
+    "-95"
+   ],
+   "TriggerTime": 5,
+   "AssignedChnls": [],
+   "HVSlot": 0,
+   "MonVar": 1
+  }
+ },
+ "Detectors_Alarms": {
+  "Detector 1": {
+   "AlarmLevel": 0,
+   "Triggers": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Detector 2": {
+   "AlarmLevel": 0,
+   "Triggers": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Detector 3": {
+   "AlarmLevel": 0,
+   "Triggers": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Detector 4": {
+   "AlarmLevel": 0,
+   "Triggers": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Detector 5": {
+   "AlarmLevel": 0,
+   "Triggers": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Detector 6": {
+   "AlarmLevel": 0,
+   "Triggers": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Detector 7": {
+   "AlarmLevel": 0,
+   "Triggers": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Detector 8": {
+   "AlarmLevel": 0,
+   "Triggers": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Alarm_Actions": {
+   "1": {
+    "functions": [
+     "SendEmail"
+    ]
+   },
+   "2": {
+    "functions": [
+     "AlarmCall"
+    ]
+   },
+   "3": {
+    "functions": [
+     "ShutDownVoltage"
+    ]
+   },
+   "4": {
+    "functions": [
+     "TriggerFilling"
+    ]
+   },
+   "edge_percentage (%)": 2,
+   "filling_pause (min)": 6
+  }
+ },
+ "Variables": {
+  "alarmlvllist": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "stopvar": 1
+ },
+ "Monitoring_Data": {
+  "CurrentTemp": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "CurrentSystemState": 0,
+  "CurrentControlState": 0,
+  "NextFill": ""
+ },
+ "cntrllrs": {
+  "LN2": {
+   "cRio1": "172.18.4.43",
+   "cRio2": "172.18.4.108",
+   "chosen_cRio": "cRio1"
+  },
+  "CAEN_HV": {
+   "epicsnumber": "9b0ab43a3f7d7ff0"
+  }
+ },
+ "PV_channels": {
+  "Channels2Monitor": {
+   "TempChnl": "EpicsLibrary:DetTempValues",
+   "ValvesTemp": "EpicsLibrary:ValvesTempValues",
+   "SystemState": "EpicsLibrary:systemState",
+   "ControlState": "EpicsLibrary:ctrlState",
+   "NextFill": "EpicsLibrary:time2nextFill"
+  }
+ },
+ "Filling_Time": {
+  "Detector 1": "2021-10-04 15:09:57.903729",
+  "Detector 2": "2021-10-04 15:10:08.030783",
+  "Detector 3": "2021-10-04 15:10:10.045053",
+  "Detector 4": "2021-10-08 09:47:29.127644",
+  "Detector 5": "2021-10-04 15:10:14.097868",
+  "Detector 6": "2021-10-04 15:10:12.077249",
+  "Detector 7": "2021-10-04 15:10:01.937303",
+  "Detector 8": "2021-10-04 15:10:04.000170"
+ }
+}
