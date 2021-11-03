@@ -212,14 +212,12 @@
     0,
     0,
     0,
-    0,
     0
    ]
   },
   "Detector 2": {
    "AlarmLevel": 0,
    "Triggers": [
-    0,
     0,
     0,
     0,
@@ -234,14 +232,12 @@
     0,
     0,
     0,
-    0,
     0
    ]
   },
   "Detector 4": {
    "AlarmLevel": 0,
    "Triggers": [
-    0,
     0,
     0,
     0,
@@ -256,14 +252,12 @@
     0,
     0,
     0,
-    0,
     0
    ]
   },
   "Detector 6": {
    "AlarmLevel": 0,
    "Triggers": [
-    0,
     0,
     0,
     0,
@@ -278,14 +272,12 @@
     0,
     0,
     0,
-    0,
     0
    ]
   },
   "Detector 8": {
    "AlarmLevel": 0,
    "Triggers": [
-    0,
     0,
     0,
     0,
@@ -350,7 +342,7 @@
   "LN2": {
    "cRio1": "172.18.4.43",
    "cRio2": "172.18.4.108",
-   "chosen_cRio": "cRio1"
+   "chosen_cRio": "cRio2"
   },
   "CAEN_HV": {
    "epicsnumber": "9b0ab43a3f7d7ff0"
