@@ -46,7 +46,7 @@ def MACE():
         threads.append(x)
 
         y = threading.Thread(target=ctrl.Control,args=(lambda: stop,), name='Control')
-        y.daemon=False
+        y.daemon=True
         threads.append(y)
 
         z = threading.Thread(target=handler.AlarmMonitoring,args=(lambda: stop,), name='AlarmMonitoring')
