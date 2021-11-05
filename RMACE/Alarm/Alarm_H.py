@@ -43,46 +43,27 @@ def AlarmMonitoring(stop):
             for i in datavar["alarmlvllist"]:
                 alarmlvllist.append(i)
 
+            
+            alarmlevel=[]
             #Iterating through alarms to see if something changed:
             for detector,attrs in datadetal.items():
                 if detector[0:3]=="Det":
                     y=attrs['AlarmLevel']
-                    if y==0:
+                    alarmlevel.append(y)
+                    if y==0 or y=='dc':
                         datavar["alarmlvllist"][int(detector[-1])-1]=y
 
-                    if (detector in detlist) and y and alarmlvllist[int(detector[-1])-1]!=y and y!='edge':
-
-                        if y==1:
-                            al_vec=datadetal["Alarm_Actions"]['1']['functions']
-                            if al_vec:
-                                for func in al_vec:
-                                    exec("af."+func+"(detector[-1])")
-                                al_vec=[]
-
-
-                        elif y==2:
-                            al_vec=datadetal["Alarm_Actions"]['2']['functions']
-                            if alarmlvllist[int(detector[-1])-1]<y:
-                                if al_vec:
-                                    for func in al_vec:
-                                        exec("af."+func+"(detector[-1])")
-                                    al_vec=[]
-
-                        elif y==3:
-                            al_vec=datadetal["Alarm_Actions"]['3']['functions']
-                            if alarmlvllist[int(detector[-1])-1]<y:
-                                if al_vec:
-                                    for func in al_vec:
-                                        exec("af."+func+"(detector[-1])")
-                                    al_vec=[]
-
-                        elif y==4:
-                            al_vec=datadetal["Alarm_Actions"]['4']['functions']
-                            if alarmlvllist[int(detector[-1])-1]<y:
-                                if al_vec:
-                                    for func in al_vec:
-                                        exec("af."+func+"(detector[-1])")
-                                    al_vec=[]
+                    elif (detector in detlist) and y and y!='edge' and y!='dc':
+                        if alarmlvllist[int(detector[-1])-1]<y:
+                        
+                            for i in range(datadetal["Alarm_Actions"]["conditions_number"]):
+                            
+                                if y==i+1:
+                                    al_vec=datadetal["Alarm_Actions"][str(y)]['functions']
+                                    if al_vec:
+                                        for func in al_vec:
+                                            exec("af."+func+"(detector[-1])")
+                                        al_vec=[]
 
                         datavar["alarmlvllist"][int(detector[-1])-1]=y
                         
@@ -100,8 +81,6 @@ def AlarmMonitoring(stop):
             redjson=json.dumps(datadetcnfg,ensure_ascii=False).encode('utf-8')
             redb.set('Detectors_config',redjson)
 
-            #if data['Variables']['stopvar']==1:
-                #stop=1
                 
             if stop():
                 

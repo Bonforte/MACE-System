@@ -32,7 +32,7 @@ def TempMonitoring1(stop):
             #Epics importing data into local array:
             #DetTempValues=caget('172.18.4.108:EpicsLibrary:DetTempValues.VAL')
             
-            with open("/home/eliade/Desktop/RMACE/Confjson/MACE_test.json","r") as testfile:
+            with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/MACE_test.json","r") as testfile:
                 json_obj=json.load(testfile)
             
             data=json.loads(redb.get('Monitoring_Data').decode('utf-8'))
@@ -57,7 +57,7 @@ def TempMonitoring1(stop):
             #Epics importing data into local array:
             #DetTempValues=caget('172.18.4.108:EpicsLibrary:DetTempValues.VAL')
             
-            with open("/home/eliade/Desktop/RMACE/Confjson/MACE_test.json","r") as testfile:
+            with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/MACE_test.json","r") as testfile:
                 json_obj=json.load(testfile)
             
             data=json.loads(redb.get('Monitoring_Data').decode('utf-8'))

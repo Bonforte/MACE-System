@@ -12,11 +12,13 @@ import Monitor.Monitoring_Unit as mon
 import epics
 import redis
 import threading
+import Confjson.load_config as cnfg
         
 def MACE():
     #Starting script:
     print("Initializing settings...\n")
-    time.sleep(1)    
+    time.sleep(1)
+       
     #opening configuration file:
     with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as db_json:
         json_object=json.load(db_json)
@@ -41,7 +43,7 @@ def MACE():
         epics.ca.use_initial_context()
         
         #Executing essential modules:
-        x = epics.ca.CAThread(target=mon.TempMonitoring,args=(lambda: stop,), name='Monitoring_Unit')
+        x = epics.ca.CAThread(target=mon.TempMonitoring1,args=(lambda: stop,), name='Monitoring_Unit')
         x.daemon=True
         threads.append(x)
 
