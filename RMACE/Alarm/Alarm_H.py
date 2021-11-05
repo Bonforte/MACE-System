@@ -8,7 +8,7 @@ import json
 import time
 
 #opening configuration file:
-with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as db_conf:
+with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as db_conf:
     json_data=json.load(db_conf)
 
 #Defining connection to redis:

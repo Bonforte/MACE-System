@@ -1,3 +1,5 @@
+
+
 #!/usr/bin/env python3
 
 import json
@@ -8,7 +10,7 @@ import redis
 
 def ldcnfg():
     try:
-        with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as dbset:
+        with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as dbset:
             json_obj=json.load(dbset)
 
         host=json_obj["Credentials"]["redis_ip"]

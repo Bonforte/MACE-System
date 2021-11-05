@@ -342,7 +342,7 @@
   "LN2": {
    "cRio1": "172.18.4.43",
    "cRio2": "172.18.4.108",
-   "chosen_cRio": "cRio2"
+   "chosen_cRio": "cRio1"
   },
   "CAEN_HV": {
    "epicsnumber": "9b0ab43a3f7d7ff0"

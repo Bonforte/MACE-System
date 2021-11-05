@@ -17,7 +17,7 @@ import time
 
 
 def GUI():
-    with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json",'r') as dbjson:
+    with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json",'r') as dbjson:
         data_dbjson=json.load(dbjson)
 
     redis_host='localhost'
@@ -99,7 +99,7 @@ def GUI():
             #Checking post information to see what button has been pressed:
             #1. Reset button:
             if 'reset' in regkeys[0]:
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as jsondata1:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as jsondata1:
                     jsonobj1=json.load(jsondata1)
                 #Opening json working file:
                 detaldata=json.loads(redb.get('Detectors_Alarms').decode('utf-8'))
@@ -122,12 +122,12 @@ def GUI():
                 redjson=json.dumps(detaldata,ensure_ascii=False).encode('utf-8')
                 redb.set('Detectors_Alarms',redjson)
 
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","w") as jsondata1:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","w") as jsondata1:
                     json.dump(jsonobj1,jsondata1,indent=1)
 
             #2. Set Map button:       
             elif 'CHNLS' in regkeys[0]:
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as jsondata2:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as jsondata2:
                     jsonobj2=json.load(jsondata2)
                 #Records detector:
                 detchosen=regkeys[0]
@@ -166,12 +166,12 @@ def GUI():
                 redjson=json.dumps(detcnfgdata,ensure_ascii=False).encode('utf-8')
                 redb.set('Detectors_config',redjson)
 
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","w") as jsondata2:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","w") as jsondata2:
                     json.dump(jsonobj2,jsondata2,indent=1)
 
             #3. Activate button (MonVar):
             elif 'actmon' in regkeys[0]:
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as jsondata3:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as jsondata3:
                     jsonobj3=json.load(jsondata3)
                 #Recording detector:
                 detchosen=regkeys[0]
@@ -190,14 +190,14 @@ def GUI():
                 redjson=json.dumps(detcnfgdata,ensure_ascii=False).encode('utf-8')
                 redb.set('Detectors_config',redjson)
 
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","w") as jsondata3:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","w") as jsondata3:
                     json.dump(jsonobj3,jsondata3,indent=1)
             
             #4. Disable button (MonVar):
             elif 'dismon' in regkeys[0]:
                 #Recording detector:
                 detchosen=regkeys[0]
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as jsondata4:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as jsondata4:
                     jsonobj4=json.load(jsondata4)
                 #Opening json configuration file:
                 detcnfgdata=json.loads(redb.get('Detectors_config').decode('utf-8'))
@@ -213,13 +213,13 @@ def GUI():
                 redjson=json.dumps(detcnfgdata,ensure_ascii=False).encode('utf-8')
                 redb.set('Detectors_config',redjson)
 
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","w") as jsondata4:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","w") as jsondata4:
                     json.dump(jsonobj4,jsondata4,indent=1)
             
             #5. Set Parameters button (For condition alarming intervals):
             elif 'limits' in regkeys[0]:
 
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as jsondata5:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as jsondata5:
                     jsonobj5=json.load(jsondata5)
 
                 #Recording detector:
@@ -253,13 +253,13 @@ def GUI():
                 redjson=json.dumps(detcnfgdata,ensure_ascii=False).encode('utf-8')
                 redb.set('Detectors_config',redjson)
 
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","w") as jsondata5:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","w") as jsondata5:
                     json.dump(jsonobj5,jsondata5,indent=1)
 
             #6. Start button:
             elif 'Start' in regkeys[0]:
                 cnfg.ldcnfg()
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as jsondata6:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as jsondata6:
                     jsonobj6=json.load(jsondata6)
 
                 datavar=json.loads(redb.get('Variables').decode('utf-8'))
@@ -284,13 +284,13 @@ def GUI():
                 #Starting MACE.py thread in parallel with GUI.py:
                 x.start()
 
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","w") as jsondata6:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","w") as jsondata6:
                     json.dump(jsonobj6,jsondata6,indent=1)
                 
             #7. Stop button:
             elif 'Stop' in regkeys[0]:
 
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as jsondata7:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as jsondata7:
                     jsonobj7=json.load(jsondata7)
 
                 #Loading working json file:
@@ -310,7 +310,7 @@ def GUI():
                 redjson=json.dumps(datavar,ensure_ascii=False).encode('utf-8')
                 redb.set('Variables',redjson)
 
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","w") as jsondata7:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","w") as jsondata7:
                     json.dump(jsonobj7,jsondata7,indent=1)
                 
                 
@@ -323,7 +323,7 @@ def GUI():
             elif 'Validate' in regkeys[0]:
 
                 #Loading settings json file:
-                with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as jsondata8:
+                with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as jsondata8:
                     jsonobj8=json.load(jsondata8)
 
                 #Recording output from gui_scripts/Validate.py script that has been imported:
@@ -426,7 +426,7 @@ def GUI():
         #Returns html page with its corresponding variables for jinja2:
         return render_template('index.html',detlistno=detlistno,validationvariable=validationvariable,activevar=activevar,data=data,headings=headings,dataval=dataval,splist=splist,alarmlist=alarmlist,hvslotarray=hvslotarray,chnlsarray=chnlsarray,monvararray=monvararray)
     
-    with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as db_conf:
+    with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as db_conf:
         json_end=json.load(db_conf)
 
     #Run server that can be accessed through browser at respective IP and PORT:

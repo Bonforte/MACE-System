@@ -6,7 +6,7 @@ import time
 
 #Initializing connection with database
 
-with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as db_json:
+with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as db_json:
     json_object=json.load(db_json)
     
 host=json_object["Credentials"]["redis_ip"]

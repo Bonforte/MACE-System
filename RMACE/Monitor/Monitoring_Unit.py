@@ -6,7 +6,7 @@ import time
 from datetime import datetime
 
 #opening configuration file:
-with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as db_json:
+with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as db_json:
     json_object=json.load(db_json)
 
 #Redis configuration variables

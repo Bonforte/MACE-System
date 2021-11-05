@@ -18,7 +18,7 @@ def MACE():
     print("Initializing settings...\n")
     time.sleep(1)    
     #opening configuration file:
-    with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as db_json:
+    with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as db_json:
         json_object=json.load(db_json)
     time.sleep(1)
 
@@ -78,14 +78,14 @@ def MACE():
         stop=True
         time.sleep(0.5)
         
-        with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json",'r') as dataend:
+        with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json",'r') as dataend:
             data=json.load(dataend)
 
         #Making sure that code does not start automatically when GUI starts.
         data['Variables']['stopvar']=1
         
 
-        with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json",'w') as dataend:
+        with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json",'w') as dataend:
             json.dump(data,dataend,indent=1)
 
         #Waiting for dump to take place:

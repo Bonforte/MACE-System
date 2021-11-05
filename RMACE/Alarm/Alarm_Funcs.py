@@ -10,7 +10,7 @@ import time
 import redis
 
 #opening json config file
-with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as json_config:
+with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as json_config:
     json_data=json.load(json_config)
 
 #Defining connection to redis
@@ -152,7 +152,7 @@ def TriggerFilling(id):
     #Load json main configuration file:
     datafill=json.loads(redb.get('Filling_Time').decode("utf-8"))
 
-    with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","r") as jsondata:
+    with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","r") as jsondata:
         jsondata_obj=json.load(jsondata)
 
     #Comparing with last fill:
@@ -161,7 +161,7 @@ def TriggerFilling(id):
         
         jsondata_obj['Filling_Time']['Detector '+str(id)]=str(timefill)
 
-        with open("/home/eliade/Desktop/RMACE/Confjson/db_config_settings.json","w") as jsondata:
+        with open("/home/eliade/Desktop/MACE-System/RMACE/Confjson/db_config_settings.json","w") as jsondata:
            json.dump(jsondata_obj,jsondata,indent=1)
 
         datafill['Detector '+str(id)]=str(timefill)
