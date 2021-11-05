@@ -17,6 +17,16 @@ redb=redis.Redis(host,port,db)
 
 #Defining limit functions
 
+def edge_calculator(attrs,detaljson):
+    #Defining uncertainty band
+    edge_array=[]
+    percentage=detaljson["Alarm_Actions"]["edge_percentage (%)"]/100
+    for i in range(1,5):
+        edge=(float(attrs["Condition "+str(i)][1])-float(attrs["Condition "+str(i)][0]))*percentage
+        edge_array.append(edge)
+    return edge_array
+
+
 def Check_in_Limits(a,c,d,edge):
     if float(a)>(float(c)+edge) and float(a)<=(float(d)-edge):
         return True
@@ -42,33 +52,35 @@ def CheckAlarmCond(detector, attrs, detaljson, edge_array,trigger, detmonjson, c
             if detaljson[detector]["Triggers"][condition-1]>=trigger:
                 detaljson[detector]["AlarmLevel"] = condition
                 
-
-                for z in range(len(detaljson[detector]['Triggers'])):
-                    if detaljson[detector]["Triggers"][z] != detaljson[detector]["Triggers"][condition-1]:
-                        if detaljson[detector]["Triggers"][z] > 0:
-                            detaljson[detector]["Triggers"][z] -= 1
+        else:
+            if detaljson[detector]["Triggers"][condition-1]>0:
+                detaljson[detector]["Triggers"][condition-1]-=1
+                if detaljson[detector]["Triggers"][condition-1] == 0:
+                    pass
+            
 
     #Checking for special cases
                             
     #No alarms
     if Check_out_Limits(detmonjson["CurrentTemp"][index],attrs["Condition 1"][0],attrs["Condition 4"][1]):
-        if detaljson[str(detector)]['Triggers'][4]>=trigger:
+        detaljson[str(detector)]['Triggers'][-1] += 1 
+        if detaljson[str(detector)]['Triggers'][-1]>=trigger:
             
             detaljson[detector]['AlarmLevel']=0
             
-            for z in range(len(detaljson[str(detector)]['Triggers'])):
-                if z != 4 :
-                    if detaljson[detector]["Triggers"][z] > 0:
-                        detaljson[detector]["Triggers"][z] -= 1
+        else:
+            if detaljson[detector]["Triggers"][-1]>0:
+                detaljson[detector]["Triggers"][-1]-=1
+                if detaljson[detector]["Triggers"][-1] == 0:
+                    pass
 
     #disconnected:
     elif float(detmonjson["CurrentTemp"][index])>100:
         
         detaljson[detector]['AlarmLevel']='dc'
-        for z in range(len(detaljson[str(detector)]['Triggers'])):
-            if z != 5 :
-                if detaljson[detector]["Triggers"][z] > 0:
-                    detaljson[detector]["Triggers"][z] -= 1
+
+    
+        
 
     redb.watch("Detectors_Alarms")
     redjson=json.dumps(detaljson,ensure_ascii=False).encode('utf-8')
@@ -97,27 +109,14 @@ def Control(stop):
 
                 detmonjson=json.loads(redb.get("Monitoring_Data").decode("utf-8"))
                 
-                #Recording detectors that were activated for monitorization in local array:
-                detlist=[]
-                for detector,attrs in detcnfgjson.items():
-                    if attrs['MonVar']:
-                        detlist.append(str(detector))
 
                 #Comparing for alerts;
                 for detector,attrs in detcnfgjson.items():
                     
-                    if detector in detlist:
+                    if attrs["MonVar"]:
                         trigger=detcnfgjson[str(detector)]['TriggerTime']
 
-                        #Recording detector index for data structure access:
-                        index=int(detector[-1])-1
-
-                        #Defining uncertainty band
-                        edge_array=[]
-                        percentage=detaljson["Alarm_Actions"]["edge_percentage (%)"]/100
-                        for i in range(1,5):
-                            edge=(float(attrs["Condition "+str(i)][1])-float(attrs["Condition "+str(i)][0]))*percentage
-                            edge_array.append(edge)
+                        edge_array=edge_calculator(attrs,detaljson)
                         
                         #Checking alarm levels interval triggering.
                         CheckAlarmCond(detector, attrs, detaljson, edge_array, trigger, detmonjson, 4)
